@@ -46,7 +46,13 @@ body {
   border: 1px solid #000;
 }
 
-#datetime-picker:active,
+#datetime-picker:disabled {
+  border: 1px solid #808080;
+  background: #F5F5F5;
+  cursor: not-allowed;
+}
+
+
 #datetime-picker:focus {
   border: 1px solid #4E75FF;
   outline: transparent;

@@ -37,36 +37,28 @@ const countdownTimer = () => {
 
   if (distance < 0) {
     clearInterval(countdownInterval);
-    document.querySelector('[data-start]').setAttribute('disabled', '');
   } else {
-    const { days, hours, minutes, seconds } = convertMs(distance);
-
-    document.querySelector('[data-days]').innerText = addLeadingZero(days);
-    document.querySelector('[data-hours]').innerText = addLeadingZero(hours);
-    document.querySelector('[data-minutes]').innerText =
-      addLeadingZero(minutes);
-    document.querySelector('[data-seconds]').innerText =
-      addLeadingZero(seconds);
+    displaySelectedDate(distance);
+    document.querySelector('[data-start]').setAttribute('disabled', '');
   }
 };
+
+function displaySelectedDate(distance) {
+  const { days, hours, minutes, seconds } = convertMs(distance);
+
+  document.querySelector('[data-days]').innerText = addLeadingZero(days);
+  document.querySelector('[data-hours]').innerText = addLeadingZero(hours);
+  document.querySelector('[data-minutes]').innerText = addLeadingZero(minutes);
+  document.querySelector('[data-seconds]').innerText = addLeadingZero(seconds);
+}
 
 function addLeadingZero(time) {
   return time.toString().padStart(2, '0');
 }
 
 document.querySelector('[data-start]').addEventListener('click', () => {
-  if (userSelectedDate) {
-    countdownInterval = setInterval(countdownTimer, 1000);
-  } else {
-    iziToast.show({
-      title: 'Warning',
-      message: 'Please choose a date first',
-      position: 'topRight',
-      backgroundColor: '#EF4040',
-      titleColor: '#FFFFFF',
-      messageColor: '#FFFFFF',
-    });
-  }
+  document.getElementById('datetime-picker').setAttribute('disabled', '');
+  countdownInterval = setInterval(countdownTimer, 1000);
 });
 
 function convertMs(ms) {
